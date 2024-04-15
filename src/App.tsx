@@ -4,8 +4,8 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>this is react application</h1>
+    <div className="text-3xl font-bold text-green-800">
+      hey
     </div>
   );
 }
