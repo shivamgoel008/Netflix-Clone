@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { HtmlHTMLAttributes, useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidate } from "../utils/validate";
 
@@ -7,12 +7,13 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  const name = useRef<HTMLInputElement>(null);
   const toggleSignInForm = () => {
     setSignInForm(!isSignInForm);
   };
 
   const handleButtonClick = () => {
-    var message = checkValidate(email.current?.value as string, password.current?.value as string)
+    var message = checkValidate(email.current?.value as string, password.current?.value as string, name.current?.value as string)
     setErrorMessage(message);
   };
   return (
@@ -35,6 +36,7 @@ const Login = () => {
 
         {!isSignInForm && (
           <input
+            ref = {name}
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full rounded-lg"
