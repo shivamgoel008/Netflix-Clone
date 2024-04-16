@@ -1,6 +1,8 @@
-import React, { HtmlHTMLAttributes, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidate } from "../utils/validate";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSignInForm, setSignInForm] = useState(true);
@@ -13,8 +15,51 @@ const Login = () => {
   };
 
   const handleButtonClick = () => {
-    var message = checkValidate(email.current?.value as string, password.current?.value as string, name.current?.value as string)
+    var message = checkValidate(
+      email.current?.value as string,
+      password.current?.value as string,
+      name.current?.value as string,
+      isSignInForm
+    );
+
+    debugger;
     setErrorMessage(message);
+
+    if (message !== "") return;
+
+    if (isSignInForm) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current?.value as string,
+        password.current?.value as string
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error: any) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
+
+    if (!isSignInForm) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current?.value as string,
+        password.current?.value as string
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error: any) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
   };
   return (
     <div>
@@ -36,10 +81,10 @@ const Login = () => {
 
         {!isSignInForm && (
           <input
-            ref = {name}
+            ref={name}
             type="text"
             placeholder="Full Name"
-            className="p-4 my-4 w-full rounded-lg"
+            className="p-4 my-4 w-full rounded-lg text-black"
           />
         )}
         <input
