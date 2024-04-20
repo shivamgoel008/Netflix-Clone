@@ -1,12 +1,16 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidate } from "../utils/validate";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { error } from "console";
 
 const Login = () => {
   const [isSignInForm, setSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const name = useRef<HTMLInputElement>(null);
@@ -28,13 +32,15 @@ const Login = () => {
     if (message !== "") return;
 
     if (isSignInForm) {
-      createUserWithEmailAndPassword(
+      // sign in logic
+      signInWithEmailAndPassword(
         auth,
         email.current?.value as string,
         password.current?.value as string
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          navigate("/browse");
           console.log(user);
         })
         .catch((error: any) => {
@@ -45,6 +51,7 @@ const Login = () => {
     }
 
     if (!isSignInForm) {
+      // signup logic
       createUserWithEmailAndPassword(
         auth,
         email.current?.value as string,
@@ -52,7 +59,16 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          updateProfile(user,{
+            displayName: name.current?.value,
+            photoURL: "https://avatars.githubusercontent.com/u/55030452?v=4",
+          }).then(()=>{
+            navigate("/browse");
+          }).catch((error)=>{
+            setErrorMessage(error.message);
+          });
           console.log(user);
+          navigate("/browse");
         })
         .catch((error: any) => {
           const errorCode = error.code;
