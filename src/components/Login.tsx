@@ -4,11 +4,13 @@ import { checkValidate } from "../utils/validate";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { error } from "console";
+import { UseDispatch, useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const email = useRef<HTMLInputElement>(null);
@@ -63,6 +65,14 @@ const Login = () => {
             displayName: name.current?.value,
             photoURL: "https://avatars.githubusercontent.com/u/55030452?v=4",
           }).then(()=>{
+            dispatch(addUser(
+              {
+                uid: auth.currentUser?.uid,
+                email: auth.currentUser?.email,
+                displayName: auth.currentUser?.displayName,
+                photoURL: auth.currentUser?.photoURL
+              }
+            ))
             navigate("/browse");
           }).catch((error)=>{
             setErrorMessage(error.message);
