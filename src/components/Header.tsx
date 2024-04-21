@@ -1,21 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebase";
-import { signOut } from "firebase/auth";
-import { useSelector } from "react-redux";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
 
 const Header = () => {
   const user = useSelector((appStore: any) => appStore.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   function handleSignOut(): void {
     signOut(auth)
       .then(() => {
-        navigate("/");
       })
       .catch((error: any) => {
         navigate("/error");
       });
   }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(
+          addUser({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          })
+        );
+        navigate("/browse");
+      } else {
+        dispatch(removeUser(""));
+        navigate("/");
+      }
+    });
+  }, []);
 
   return (
     <div>
@@ -47,3 +67,7 @@ const Header = () => {
 };
 
 export default Header;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+
