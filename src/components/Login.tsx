@@ -73,12 +73,10 @@ const Login = () => {
                 photoURL: auth.currentUser?.photoURL
               }
             ))
-            navigate("/browse");
           }).catch((error)=>{
             setErrorMessage(error.message);
           });
           console.log(user);
-          navigate("/browse");
         })
         .catch((error: any) => {
           const errorCode = error.code;
