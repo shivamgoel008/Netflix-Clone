@@ -2,6 +2,7 @@
 
 #firebase keys 
 /src/utils/firebase.ts
+/src/utils/tmdbKeys.ts
 
 # dependencies
 /node_modules
