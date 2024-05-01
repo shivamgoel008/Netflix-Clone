@@ -17,7 +17,7 @@ const MainContainer: React.FC = () => {
   return (
     <div>
       <VideoTitle title={mainMovies?.original_title}  overview={mainMovies.overview}/>
-      <VideoBackground />
+      <VideoBackground movieId={mainMovies?.id}/>
     </div>
   );
 };
