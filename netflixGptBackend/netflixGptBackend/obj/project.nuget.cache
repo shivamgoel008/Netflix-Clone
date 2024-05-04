@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "eHM6WM5Sr9GmBk7XA20En3gG/l67hQxkJf+MVD0f/yPhz5SjN+d/l91tWldKvaIXQk1MkllBsF4fj58StnhySg==",
+  "success": true,
+  "projectFilePath": "/Users/shivam/Development/VS Code/React/reactapp/netflixGptBackend/netflixGptBackend/netflixGptBackend.csproj",
+  "expectedPackageFiles": [
+    "/Users/shivam/.nuget/packages/microsoft.aspnetcore.openapi/7.0.18/microsoft.aspnetcore.openapi.7.0.18.nupkg.sha512",
+    "/Users/shivam/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/shivam/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/Users/shivam/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "/Users/shivam/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "/Users/shivam/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "/Users/shivam/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

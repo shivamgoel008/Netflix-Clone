@@ -11,11 +11,11 @@ const Browse = () => {
   useTopRatedMovies();
   useUpcomingMovies();
   return (
-    <div>
+    <>
       <Header/>
       <MainContainer/>
       <SecondaryConatiner/>
-    </div>
+    </>
   )
 }
 
