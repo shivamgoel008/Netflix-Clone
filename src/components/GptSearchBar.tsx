@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GEMINI_KEY } from "../utils/openaiKey";
 import { API_OPTIONS } from "../utils/constants";
 import { useDispatch } from "react-redux";
-import { addGptMovieResults } from "../utils/gptSlice";
+import { addGptMovieNames, addGptMovieResults } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
   const searchText = useRef<HTMLInputElement>(null);
@@ -60,7 +60,7 @@ const GptSearchBar = () => {
       );
       const tmdbResults = await Promise.all(promiseArray);
       dispatch(addGptMovieResults(tmdbResults as any[] & void)); 
-
+      dispatch(addGptMovieNames(gptMovies));
       console.log(tmdbResults);
     } catch (error) {
       console.error("Error fetching data:", error);
