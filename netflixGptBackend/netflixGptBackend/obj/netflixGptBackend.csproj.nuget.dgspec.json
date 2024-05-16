@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/shivam/Development/VS Code/React/reactapp/netflixGptBackend/netflixGptBackend/netflixGptBackend.csproj": {}
+    "/Users/shivam/Development/VS Code/React/react-app/netflixGptBackend/netflixGptBackend/netflixGptBackend.csproj": {}
   },
   "projects": {
-    "/Users/shivam/Development/VS Code/React/reactapp/netflixGptBackend/netflixGptBackend/netflixGptBackend.csproj": {
+    "/Users/shivam/Development/VS Code/React/react-app/netflixGptBackend/netflixGptBackend/netflixGptBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/shivam/Development/VS Code/React/reactapp/netflixGptBackend/netflixGptBackend/netflixGptBackend.csproj",
+        "projectUniqueName": "/Users/shivam/Development/VS Code/React/react-app/netflixGptBackend/netflixGptBackend/netflixGptBackend.csproj",
         "projectName": "netflixGptBackend",
-        "projectPath": "/Users/shivam/Development/VS Code/React/reactapp/netflixGptBackend/netflixGptBackend/netflixGptBackend.csproj",
+        "projectPath": "/Users/shivam/Development/VS Code/React/react-app/netflixGptBackend/netflixGptBackend/netflixGptBackend.csproj",
         "packagesPath": "/Users/shivam/.nuget/packages/",
-        "outputPath": "/Users/shivam/Development/VS Code/React/reactapp/netflixGptBackend/netflixGptBackend/obj/",
+        "outputPath": "/Users/shivam/Development/VS Code/React/react-app/netflixGptBackend/netflixGptBackend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/shivam/.nuget/NuGet/NuGet.Config"
