@@ -3,7 +3,7 @@
 #firebase keys 
 /src/utils/firebase.ts
 /src/utils/tmdbKeys.ts
-/src/utils/openaiKeys.ts
+/src/utils/openaiKey.ts
 
 # dependencies
 /node_modules
