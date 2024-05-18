@@ -1,4 +1,25 @@
 ﻿<Properties StartupConfiguration="{9D63DB4A-531F-4EA9-BA1F-EBEABC48D9AB}|Default">
-  <MonoDevelop.Ide.ItemProperties.netflixGptBackend FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="netflixGptBackend/Controllers/AccountController.cs">
+    <Files>
+      <File FileName="netflixGptBackend/Controllers/AccountController.cs" Line="13" Column="37" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="netflixGptBackend" expanded="True">
+            <Node name="netflixGptBackend">
+              <Node name="Controllers" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.netflixGptBackend PreferredExecutionTarget="/Applications/Google Chrome.app" FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>
