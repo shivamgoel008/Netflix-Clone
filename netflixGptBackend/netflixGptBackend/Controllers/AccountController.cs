@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using netflixGptBackend.Helper;
 using netflixGptBackend.Interface;
 using netflixGptBackend.Models;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace netflixGptBackend.Controllers
 {
@@ -19,7 +18,7 @@ namespace netflixGptBackend.Controllers
         public AccountController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-             _pepper = "Shivam";
+            _pepper = "Shivam";
         }
         [HttpPost]
         [Route("[controller]/register-user/{name}/{email}/{password}")]
@@ -28,15 +27,25 @@ namespace netflixGptBackend.Controllers
             var passwordSalt = PasswordHasher.GenerateSalt();
             var user = new User
             {
+                PartitionKey = email,
+                RowKey = Guid.NewGuid().ToString(),
                 Name = name,
                 Email = email,
                 PasswordSalt = passwordSalt,
                 Alias = email.Split('@')[0],
-                PasswordHash=PasswordHasher.ComputeHash(password, passwordSalt, _pepper, _iteration)
+                PasswordHash = PasswordHasher.ComputeHash(password, passwordSalt, _pepper, _iteration)
             };
 
-            var result = await _userRepository.RegisterUserAsync();
-            return Ok();
+            var result = await _userRepository.RegisterUserAsync(user);
+            switch (result)
+            {
+                case 1:
+                    return Ok(new { code = 1, message = "Success" });
+                case 0:
+                    return Ok(new { code = 0, message = "Duplicate User" }); 
+                default:
+                    return Ok(new { code = -1, message = "Failure" }); 
+            }
         }
 
     }
