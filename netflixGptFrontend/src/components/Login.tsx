@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidate } from "../utils/validate";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { UseDispatch, useDispatch } from "react-redux";
@@ -20,15 +24,14 @@ const Login = () => {
     setSignInForm(!isSignInForm);
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (event: React.FormEvent) => {
+    event.preventDefault();
     var message = checkValidate(
       email.current?.value as string,
       password.current?.value as string,
       name.current?.value as string,
       isSignInForm
     );
-
-    debugger;
     setErrorMessage(message);
 
     if (message !== "") return;
@@ -54,35 +57,65 @@ const Login = () => {
 
     if (!isSignInForm) {
       // signup logic
-      createUserWithEmailAndPassword(
-        auth,
-        email.current?.value as string,
-        password.current?.value as string
-      )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          updateProfile(user,{
-            displayName: name.current?.value,
-            photoURL: "https://avatars.githubusercontent.com/u/55030452?v=4",
-          }).then(()=>{
-            dispatch(addUser(
-              {
-                uid: auth.currentUser?.uid,
-                email: auth.currentUser?.email,
-                displayName: auth.currentUser?.displayName,
-                photoURL: auth.currentUser?.photoURL
-              }
-            ))
-          }).catch((error)=>{
-            setErrorMessage(error.message);
-          });
-          console.log(user);
+      debugger;
+      var url =
+        "https://localhost:7235/Account/register-user/" +
+        name.current?.value +
+        "/" +
+        email.current?.value +
+        "/" +
+        password.current?.value;
+
+      fetch(url, {
+        mode: "no-cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if(response.status === 200)
+            {return response.json()}
         })
-        .catch((error: any) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + "-" + errorMessage);
+        .then((data) => {
+          console.log("Success:", data);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error:", error);
         });
+
+      // createUserWithEmailAndPassword(
+      //   auth,
+      //   email.current?.value as string,
+      //   password.current?.value as string
+      // )
+      //   .then((userCredential) => {
+      //     const user = userCredential.user;
+      //     updateProfile(user, {
+      //       displayName: name.current?.value,
+      //       photoURL: "https://avatars.githubusercontent.com/u/55030452?v=4",
+      //     })
+      //       .then(() => {
+      //         dispatch(
+      //           addUser({
+      //             uid: auth.currentUser?.uid,
+      //             email: auth.currentUser?.email,
+      //             displayName: auth.currentUser?.displayName,
+      //             photoURL: auth.currentUser?.photoURL,
+      //           })
+      //         );
+      //       })
+      //       .catch((error) => {
+      //         setErrorMessage(error.message);
+      //       });
+      //     console.log(user);
+      //   })
+      //   .catch((error: any) => {
+      //     const errorCode = error.code;
+      //     const errorMessage = error.message;
+      //     setErrorMessage(errorCode + "-" + errorMessage);
+      //   });
     }
   };
   return (

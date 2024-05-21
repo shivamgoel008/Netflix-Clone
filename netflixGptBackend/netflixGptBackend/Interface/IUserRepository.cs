@@ -4,7 +4,7 @@ namespace netflixGptBackend.Interface
 {
     public interface IUserRepository
     {
-        Task<int> RegisterUserAsync(User user);
+        Task<User> RegisterUserAsync(User user);
         Task<User>LoginUserAsync(string email, string password);
     }
 }
