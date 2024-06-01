@@ -9,7 +9,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { UseDispatch, useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import axios, { AxiosRequestConfig, AxiosPromise, AxiosResponse } from 'axios';
 
 const Login = () => {
   const [isSignInForm, setSignInForm] = useState(true);
@@ -24,7 +24,7 @@ const Login = () => {
     setSignInForm(!isSignInForm);
   };
 
-  const handleButtonClick = (event: React.FormEvent) => {
+  const handleButtonClick = async (event: React.FormEvent) => {
     event.preventDefault();
     var message = checkValidate(
       email.current?.value as string,
@@ -66,24 +66,12 @@ const Login = () => {
         "/" +
         password.current?.value;
 
-      fetch(url, {
-        mode: "no-cors",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          if(response.status === 200)
-            {return response.json()}
-        })
-        .then((data) => {
-          console.log("Success:", data);
-        })
-        .catch((error) => {
-          // Handle error
-          console.error("Error:", error);
-        });
+        try {
+          const response = await axios.post(url);
+          console.log(response);
+      } catch (error) {
+          console.error('Error making POST request', error);
+      }
 
       // createUserWithEmailAndPassword(
       //   auth,
