@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Permissions;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using netflixGptBackend.Helper;
 using netflixGptBackend.Interface;
@@ -21,6 +17,7 @@ namespace netflixGptBackend.Controllers
             _pepper = "Shivam";
         }
         [HttpPost]
+        [EnableCors("AllowAllOrigins")]
         [Route("[controller]/register-user/{name}/{email}/{password}")]
         public async Task<IActionResult> RegisterUser(string name, string email, string password)
         {
@@ -39,15 +36,7 @@ namespace netflixGptBackend.Controllers
                 };
 
                 var result = await _userRepository.RegisterUserAsync(user);
-                switch (result)
-                {
-                    case 1:
-                        return Ok(new { code = 1, message = "Success" });
-                    case 0:
-                        return Ok(new { code = 0, message = "Duplicate User" });
-                    default:
-                        return Ok(new { code = -1, message = "Failure" });
-                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
