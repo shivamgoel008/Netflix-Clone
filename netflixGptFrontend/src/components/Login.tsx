@@ -10,6 +10,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { UseDispatch, useDispatch } from "react-redux";
 import axios, { AxiosRequestConfig, AxiosPromise, AxiosResponse } from 'axios';
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setSignInForm] = useState(true);
@@ -69,6 +70,19 @@ const Login = () => {
         try {
           const response = await axios.post(url);
           console.log(response);
+          if(response.status){
+            
+            dispatch(
+              addUser(
+                {
+                  uid: response.data?.alias,
+                  email: response?.data?.email,
+                  displayName: response.data?.displayName,
+                  photoURL: response.data?.photoURL,
+                })
+            );
+            navigate("/browse");
+          }
       } catch (error) {
           console.error('Error making POST request', error);
       }
@@ -80,7 +94,7 @@ const Login = () => {
       // )
       //   .then((userCredential) => {
       //     const user = userCredential.user;
-      //     updateProfile(user, {
+      //    updateProfile(user, {
       //       displayName: name.current?.value,
       //       photoURL: "https://avatars.githubusercontent.com/u/55030452?v=4",
       //     })
