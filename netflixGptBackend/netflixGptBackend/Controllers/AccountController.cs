@@ -11,18 +11,22 @@ namespace netflixGptBackend.Controllers
         private readonly IUserRepository _userRepository;
         private readonly string _pepper;
         private readonly int _iteration = 3;
-        public AccountController(IUserRepository userRepository)
+        private readonly IConfiguration _configuration;
+
+        public AccountController(IUserRepository userRepository,IConfiguration configuration)
         {
+            _configuration = configuration;
             _userRepository = userRepository;
             _pepper = "Shivam";
         }
         [HttpPost]
         [EnableCors("AllowAllOrigins")]
         [Route("[controller]/register-user/{name}/{email}/{password}")]
-        public async Task<IActionResult> RegisterUser(string name, string email, string password)
+        public async Task<IActionResult> RegisterUser(string name, string email, string password, string photoUrl)
         {
             try
             {
+                string myKeyValue = _configuration["ConnectionString"];
                 var passwordSalt = PasswordHasher.GenerateSalt();
                 var user = new User
                 {
@@ -32,7 +36,8 @@ namespace netflixGptBackend.Controllers
                     Email = email,
                     PasswordSalt = passwordSalt,
                     Alias = email.Split('@')[0],
-                    PasswordHash = PasswordHasher.ComputeHash(password, passwordSalt, _pepper, _iteration)
+                    PasswordHash = PasswordHasher.ComputeHash(password, passwordSalt, _pepper, _iteration),
+                    PhotoUrl = string.IsNullOrWhiteSpace(photoUrl)? "https://avatars.githubusercontent.com/u/55030452?v=4":photoUrl
                 };
 
                 var result = await _userRepository.RegisterUserAsync(user);
