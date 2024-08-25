@@ -7,5 +7,6 @@ namespace netflixGptBackend.Models
         public string PasswordSalt {get;set;}
         public string PasswordHash {get;set;}
         public string Alias {get;set;}
+        public string PhotoUrl {get;set;}
     }
 }

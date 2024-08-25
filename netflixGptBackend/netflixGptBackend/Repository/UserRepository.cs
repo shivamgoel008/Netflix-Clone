@@ -48,7 +48,7 @@ namespace StudentManagementWebAPI.Repository
         }
 
 
-        public async Task<int> RegisterUserAsync(User user)
+        public async Task<User> RegisterUserAsync(User user)
         {
             try
             {
@@ -64,18 +64,18 @@ namespace StudentManagementWebAPI.Repository
                 }
                 if (exist)
                 {
-                    return 0;
+                    return new User();
                 }
                 else
                 {
                     await _tableClient.AddEntityAsync(user);
-                    return 1;
+                    return user;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return -1;
+                return null;
             }
         }
     }
